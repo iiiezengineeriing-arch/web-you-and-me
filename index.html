@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Zazan Dian ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #100b20;
+    color: white;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* BACKGROUND */
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+    radial-gradient(circle at 20% 20%, #54234e 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, #35215f 0%, transparent 40%),
+    linear-gradient(135deg, #100b20, #24112f, #100b20);
+}
+
+/* STARS */
+.stars {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .2; transform: scale(.7); }
+    to { opacity: 1; transform: scale(1.5); }
+}
+
+/* FLOATING HEARTS */
+.heart {
+    position: fixed;
+    bottom: -50px;
+    color: #ff75b5;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    z-index: 5;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% { opacity: .8; }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* MAIN */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.content {
+    max-width: 750px;
+    animation: appear 1.5s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.small-title {
+    color: #ff9dc9;
+    letter-spacing: 5px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 9vw, 85px);
+    line-height: 1.15;
+    background: linear-gradient(90deg, #fff, #ff9acb, #d7a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+.name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(25px, 5vw, 38px);
+    color: #ff9acb;
+    margin-bottom: 30px;
+}
+
+.description {
+    color: #d9c9df;
+    font-size: 14px;
+    line-height: 2;
+    font-weight: 300;
+    max-width: 550px;
+    margin: auto;
+}
+
+.big-heart {
+    font-size: 65px;
+    display: inline-block;
+    margin: 25px 0;
+    filter: drop-shadow(0 0 20px #ff4e9b);
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.2); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+/* BUTTON */
+button {
+    margin-top: 30px;
+    padding: 15px 35px;
+    border: 1px solid #ff9acb;
+    border-radius: 50px;
+    color: white;
+    background: linear-gradient(120deg, #d83c88, #8747bc);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .4s;
+    box-shadow: 0 0 25px #d83c8850;
+}
+
+button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px #ff5eae;
+}
+
+/* LETTER */
+.letter {
+    display: none;
+    margin: 35px auto 0;
+    max-width: 550px;
+    padding: 30px;
+    border: 1px solid #ff9acb60;
+    border-radius: 20px;
+    background: #ffffff0d;
+    backdrop-filter: blur(15px);
+    animation: appear 1s ease;
+}
+
+.letter h2 {
+    font-family: 'Playfair Display', serif;
+    color: #ff9acb;
+    margin-bottom: 20px;
+}
+
+.letter p {
+    font-size: 13px;
+    color: #e6d9ec;
+    line-height: 2;
+}
+
+footer {
+    margin-top: 45px;
+    font-size: 10px;
+    color: #aa91b6;
+    letter-spacing: 2px;
+}
+
+/* MUSIC BUTTON */
+.music {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    margin: 0;
+    padding: 10px 16px;
+    font-size: 11px;
+    background: #ffffff15;
+    backdrop-filter: blur(10px);
+}
+
+/* YOUTUBE PLAYER */
+.youtube-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    height: 113px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #ff75b540;
+    z-index: 10;
+}
+
+.youtube-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="stars" id="stars"></div>
+
+<button class="music" onclick="toggleMusic()" id="musicBtn">
+    ♫ Music OFF
+</button>
+
+<!-- YOUTUBE MUSIC -->
+<div class="youtube-player">
+    <div id="player"></div>
+</div>
+
+<main class="container">
+<div class="content">
+
+    <div class="small-title">✦ A LITTLE MESSAGE FROM THE HEART ✦</div>
+
+    <h1>Something<br>Beautiful</h1>
+
+    <div class="name">For Zazan Dian ❤️</div>
+
+    <p class="description" id="typing"></p>
+
+    <div class="big-heart">♥</div>
+
+    <p class="description">
+        Sometimes, the most beautiful things
+        are the ones that words cannot fully describe.
+    </p>
+
+    <button onclick="openLetter()">
+        Open Your Little Letter ✨
+    </button>
+
+    <div class="letter" id="letter">
+        <h2>Dear, Zazan Dian 💌</h2>
+
+        <p>
+            Hai, Zazan Dian.<br><br>
+
+            Ada banyak hal indah di dunia ini,
+            tetapi terkadang kehadiran seseorang
+            bisa membuat hari-hari terasa lebih istimewa.<br><br>
+
+            Aku tidak tahu bagaimana masa depan akan berjalan,
+            tetapi aku berharap kamu selalu menemukan
+            alasan untuk tersenyum, bahagia, dan tetap menjadi
+            dirimu sendiri.<br><br>
+
+            Terima kasih sudah menjadi seseorang
+            yang begitu istimewa. ❤️<br><br>
+
+            <i>With warm wishes,</i>
+        </p>
+
+        <div style="font-size:30px;margin-top:20px;">
+            💗 ✨ 💗
+        </div>
+    </div>
+
+    <footer>
+        MADE WITH LOVE • ESPECIALLY FOR ZAZAN DIAN
+    </footer>
+
+</div>
+</main>
+
+<!-- YOUTUBE API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+
+// CREATE STARS
+const stars = document.getElementById("stars");
+
+for(let i = 0; i < 100; i++) {
+    let star = document.createElement("div");
+    star.className = "star";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 3 + "s";
+    stars.appendChild(star);
+}
+
+// FLOATING HEARTS
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = Math.random() > .5 ? "♥" : "♡";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 11000);
+}
+
+setInterval(createHeart, 450);
+
+// TYPING EFFECT
+const message =
+"Kanggo arek seng jenenge Zazan Dian, seng saben dina e ana bae kelakuan tengil seng marakke kesel, tapi ya bisa menyenangkan hatikuh....";
+
+let index = 0;
+
+function typingEffect() {
+    if(index < message.length) {
+        document.getElementById("typing").textContent += message.charAt(index);
+        index++;
+        setTimeout(typingEffect, 45);
+    }
+}
+
+typingEffect();
+
+// OPEN LETTER
+function openLetter() {
+    const letter = document.getElementById("letter");
+
+    if(letter.style.display === "block") {
+        letter.style.display = "none";
+    } else {
+        letter.style.display = "block";
+        letter.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+}
+
+// YOUTUBE PLAYER
+let player;
+let playerReady = false;
+let playing = false;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '113',
+        width: '200',
+        videoId: '2uJut6USftQ',
+        playerVars: {
+            autoplay: 0,
+            controls: 1,
+            rel: 0
+        },
+        events: {
+            onReady: function() {
+                playerReady = true;
+            },
+            onStateChange: function(event) {
+                if(event.data === YT.PlayerState.PLAYING) {
+                    playing = true;
+                    document.getElementById("musicBtn").innerHTML = "♫ Music ON";
+                }
+
+                if(event.data === YT.PlayerState.PAUSED ||
+                   event.data === YT.PlayerState.ENDED) {
+                    playing = false;
+                    document.getElementById("musicBtn").innerHTML = "♫ Music OFF";
+                }
+            }
+        }
+    });
+}
+
+// MUSIC BUTTON
+function toggleMusic() {
+
+    const btn = document.getElementById("musicBtn");
+
+    if(!playerReady) {
+        btn.innerHTML = "♫ Loading...";
+        return;
+    }
+
+    if(!playing) {
+        player.playVideo();
+    } else {
+        player.pauseVideo();
+    }
+}
+
+</script>
+
+</body>
+</html>
