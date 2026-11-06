@@ -215,26 +215,6 @@ footer {
     background: #ffffff15;
     backdrop-filter: blur(10px);
 }
-
-/* YOUTUBE PLAYER */
-.youtube-player {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 200px;
-    height: 113px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 20px #ff75b540;
-    z-index: 10;
-}
-
-.youtube-player iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
 </style>
 </head>
 
@@ -246,11 +226,6 @@ footer {
 <button class="music" onclick="toggleMusic()" id="musicBtn">
     ♫ Music OFF
 </button>
-
-<!-- YOUTUBE MUSIC -->
-<div class="youtube-player">
-    <div id="player"></div>
-</div>
 
 <main class="container">
 <div class="content">
@@ -289,8 +264,7 @@ footer {
             alasan untuk tersenyum, bahagia, dan tetap menjadi
             dirimu sendiri.<br><br>
 
-            Terima kasih sudah menjadi seseorang
-            yang begitu istimewa. ❤️<br><br>
+            Terima kasih sudah menjadi seseorang yang begitu istimewa, bahkan sebelum kita benar-benar saling mengenal lebih jauh. ❤️<br><br>
 
             <i>With warm wishes,</i>
         </p>
@@ -306,9 +280,6 @@ footer {
 
 </div>
 </main>
-
-<!-- YOUTUBE API -->
-<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
@@ -372,55 +343,152 @@ function openLetter() {
     }
 }
 
-// YOUTUBE PLAYER
-let player;
-let playerReady = false;
+
+// DREAMY NIGHT - ORIGINAL INSTRUMENTAL
+let audioContext = null;
 let playing = false;
+let musicTimer = null;
+let noteIndex = 0;
 
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '113',
-        width: '200',
-        videoId: '2uJut6USftQ',
-        playerVars: {
-            autoplay: 0,
-            controls: 1,
-            rel: 0
-        },
-        events: {
-            onReady: function() {
-                playerReady = true;
-            },
-            onStateChange: function(event) {
-                if(event.data === YT.PlayerState.PLAYING) {
-                    playing = true;
-                    document.getElementById("musicBtn").innerHTML = "♫ Music ON";
-                }
+// Melodi Dreamy Night
+const melody = [
+    220.00,
+    261.63,
+    329.63,
+    261.63,
+    196.00,
+    246.94,
+    293.66,
+    246.94,
+    220.00,
+    261.63,
+    329.63,
+    392.00,
+    329.63,
+    293.66,
+    261.63,
+    220.00
+];
 
-                if(event.data === YT.PlayerState.PAUSED ||
-                   event.data === YT.PlayerState.ENDED) {
-                    playing = false;
-                    document.getElementById("musicBtn").innerHTML = "♫ Music OFF";
-                }
-            }
-        }
-    });
+// Nada bass pendamping
+const bass = [
+    110.00,
+    110.00,
+    98.00,
+    98.00,
+    123.47,
+    123.47,
+    110.00,
+    110.00
+];
+
+// Membuat satu nada lembut
+function playTone(frequency, duration, volume) {
+
+    const now = audioContext.currentTime;
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(frequency, now);
+
+    gain.gain.setValueAtTime(0.001, now);
+
+    gain.gain.linearRampToValueAtTime(
+        volume,
+        now + 0.08
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        now + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + duration + 0.05);
 }
 
-// MUSIC BUTTON
-function toggleMusic() {
+// Memainkan rangkaian melodi
+function playMelody() {
+
+    if(!playing) return;
+
+    const currentNote = melody[noteIndex];
+    const currentBass = bass[noteIndex % bass.length];
+
+    // Nada utama
+    playTone(currentNote, 1.0, 0.10);
+
+    // Harmoni lembut
+    playTone(currentNote * 2, 0.7, 0.018);
+
+    // Nada bass
+    playTone(currentBass, 1.1, 0.045);
+
+    noteIndex++;
+
+    // Mengulang melodi dari awal
+    if(noteIndex >= melody.length) {
+        noteIndex = 0;
+    }
+
+    musicTimer = setTimeout(playMelody, 620);
+}
+
+// Tombol ON / OFF
+async function toggleMusic() {
 
     const btn = document.getElementById("musicBtn");
 
-    if(!playerReady) {
-        btn.innerHTML = "♫ Loading...";
-        return;
-    }
+    try {
 
-    if(!playing) {
-        player.playVideo();
-    } else {
-        player.pauseVideo();
+        if(!audioContext) {
+
+            const AudioContextClass =
+                window.AudioContext || window.webkitAudioContext;
+
+            if(!AudioContextClass) {
+                btn.innerHTML = "♫ Not Supported";
+                return;
+            }
+
+            audioContext = new AudioContextClass();
+        }
+
+        if(!playing) {
+
+            await audioContext.resume();
+
+            playing = true;
+            noteIndex = 0;
+
+            btn.innerHTML = "♫ Music ON";
+
+            playMelody();
+
+        } else {
+
+            playing = false;
+
+            clearTimeout(musicTimer);
+
+            await audioContext.suspend();
+
+            btn.innerHTML = "♫ Music OFF";
+        }
+
+    } catch(error) {
+
+        playing = false;
+        clearTimeout(musicTimer);
+
+        btn.innerHTML = "♫ Music OFF";
+
+        console.error("Music error:", error);
     }
 }
 
